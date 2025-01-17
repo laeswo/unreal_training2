@@ -24,25 +24,28 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	int32 MyInt = 99;
-	UPROPERTY(EditAnywhere)
-	float MyFloat = 0.01;
-	UPROPERTY(EditAnywhere)
-	bool MyBoll = true;
+	FVector MyVector = FVector(1,2,3);
 
+	UPROPERTY(EditAnywhere)
+	float MyX = 0;
 	
-	UPROPERTY(EditAnywhere)
-	int32 Inputa = 2;
-	UPROPERTY(EditAnywhere)
-	int32 Inputb  = 3;
-	UPROPERTY(EditAnywhere)
-	int32 AddInput  = 0;
-
-	
-	UPROPERTY(EditAnywhere)
-	float Inputaf = 2;
-	UPROPERTY(EditAnywhere)
-	float Inputbf  = 3.1;
-	UPROPERTY(EditAnywhere)
-	float AddInputf  = 0;
+	//*변수 생성 학습*//
+	// UPROPERTY(EditAnywhere)
+	// int32 MyInt = 99;
+	// UPROPERTY(EditAnywhere)
+	// float MyFloat = 0.01;
+	// UPROPERTY(EditAnywhere)
+	// bool MyBoll = true;
+	// UPROPERTY(EditAnywhere)
+	// int32 Inputa = 2;
+	// UPROPERTY(EditAnywhere)
+	// int32 Inputb  = 3;
+	// UPROPERTY(EditAnywhere)
+	// int32 AddInput  = 0;
+	// UPROPERTY(EditAnywhere)
+	// float Inputaf = 2;
+	// UPROPERTY(EditAnywhere)
+	// float Inputbf  = 3.1;
+	// UPROPERTY(EditAnywhere)
+	// float AddInputf  = 0;
 };

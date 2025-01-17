@@ -15,14 +15,19 @@ AMovingPlatform::AMovingPlatform()
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SetActorLocation(MyVector);
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddInput = Inputa + Inputb;
-	AddInputf = Inputaf + Inputbf;
+	
+	MyX = MyVector.X;
+	
+	
+	//*실시간 변수 처리*//
+	// AddInput = Inputa + Inputb;
+	// AddInputf = Inputaf + Inputbf;
 }
 
