@@ -15,6 +15,8 @@ AMovingPlatform::AMovingPlatform()
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartLocation = GetActorLocation();
 }
 
 // Called every frame
@@ -27,7 +29,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	SetActorLocation(CurrentLocation);
 
+	float DistanceMoved = FVector::Distance(StartLocation,CurrentLocation);
 
+	if(DistanceMoved>MoveDistance)
+	{
+		PlatformVelocity = -PlatformVelocity;
+		StartLocation = CurrentLocation;
+	}
 	/*5일차 델타 타임을이용해서 프레임당 100씩움직이게 바꾸었습니다.
 	FVector CurrentLocation = GetActorLocation();
 	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
