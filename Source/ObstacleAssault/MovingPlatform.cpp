@@ -33,8 +33,10 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	if(DistanceMoved>MoveDistance)
 	{
+		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
+		StartLocation = StartLocation + MoveDirection * MoveDistance;
+		SetActorLocation(StartLocation);
 		PlatformVelocity = -PlatformVelocity;
-		StartLocation = CurrentLocation;
 	}
 	/*5일차 델타 타임을이용해서 프레임당 100씩움직이게 바꾸었습니다.
 	FVector CurrentLocation = GetActorLocation();
