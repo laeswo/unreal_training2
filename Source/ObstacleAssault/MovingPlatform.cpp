@@ -18,25 +18,34 @@ void AMovingPlatform::BeginPlay()
 
 	StartLocation = GetActorLocation();
 
+	FString MyString = GetName();
+	UE_LOG(LogTemp,Display,TEXT("My name : %s"),*MyString);
+	
+	/* 9일차 로그에대해서 배웠습니다.
 	UE_LOG(LogTemp,Display,TEXT("Current MoveDistance : %f"),MoveDistance);
+	*/
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	MovePlatfrom(DeltaTime);
+	MoveRoate(DeltaTime);
+}
+void AMovingPlatform::MovePlatfrom(float DeltaTime)
+{
 	FVector CurrentLocation = GetActorLocation();
 	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
 
 	SetActorLocation(CurrentLocation);
 
 	float DistanceMoved = FVector::Distance(StartLocation,CurrentLocation);
-
+	FString MyString = GetName();
 	if(DistanceMoved>MoveDistance)
 	{
 		float overshoot = DistanceMoved - MoveDistance;
-		UE_LOG(LogTemp,Display,TEXT("overShoot : %f"),overshoot);
+		UE_LOG(LogTemp,Display,TEXT("%s is overShoot : %f"),*MyString,overshoot);
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		StartLocation = StartLocation + MoveDirection * MoveDistance;
 		SetActorLocation(StartLocation);
@@ -62,3 +71,7 @@ void AMovingPlatform::Tick(float DeltaTime)
 	// AddInputf = Inputaf + Inputbf;
 }
 
+void AMovingPlatform::MoveRoate(float DeltaTime)
+{
+	UE_LOG(LogTemp,Display,TEXT("%s Rotating"),*GetName());	
+}
