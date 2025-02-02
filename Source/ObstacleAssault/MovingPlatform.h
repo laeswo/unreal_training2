@@ -24,16 +24,19 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY(EditAnyWhere , Category = "MovingPlatform")
+	UPROPERTY(EditAnyWhere , Category = "Moving")
 	FVector PlatformVelocity = FVector(100,0,0);
-	UPROPERTY(EditAnyWhere , Category = "MovingPlatform")
+	UPROPERTY(EditAnyWhere , Category = "Moving")
 	float MoveDistance =  100;
+	UPROPERTY(EditAnywhere,Category="Rotation")
+	FRotator RotationVelocity;
 	
 	FVector StartLocation;
 
 	void MovePlatfrom(float DeltaTime);
 	void MoveRoate(float DeltaTime);
-	
+	bool  ShouldPlatformReturn() const;
+	float DistanceMoved() const;
 	/*5일차 플랫폼이동속도 변수 백터값에 다른값은 0으로두고 x값만 값을 넣고 Categoly라는 걸 사용함
 	UPROPERTY(EditAnyWhere , Category = "MovingPlatform")
 	FVector PlatformVelocity = FVector(100,0,0);

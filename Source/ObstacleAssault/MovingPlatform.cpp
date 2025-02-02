@@ -15,9 +15,7 @@ AMovingPlatform::AMovingPlatform()
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-
 	StartLocation = GetActorLocation();
-
 	FString MyString = GetName();
 	UE_LOG(LogTemp,Display,TEXT("My name : %s"),*MyString);
 	
@@ -33,23 +31,21 @@ void AMovingPlatform::Tick(float DeltaTime)
 	MovePlatfrom(DeltaTime);
 	MoveRoate(DeltaTime);
 }
+
 void AMovingPlatform::MovePlatfrom(float DeltaTime)
 {
-	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
-
-	SetActorLocation(CurrentLocation);
-
-	float DistanceMoved = FVector::Distance(StartLocation,CurrentLocation);
-	FString MyString = GetName();
-	if(DistanceMoved>MoveDistance)
+	if(ShouldPlatformReturn())
 	{
-		float overshoot = DistanceMoved - MoveDistance;
-		UE_LOG(LogTemp,Display,TEXT("%s is overShoot : %f"),*MyString,overshoot);
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		StartLocation = StartLocation + MoveDirection * MoveDistance;
 		SetActorLocation(StartLocation);
 		PlatformVelocity = -PlatformVelocity;
+	}
+	else
+	{
+		FVector CurrentLocation = GetActorLocation();
+		CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
+		SetActorLocation(CurrentLocation);
 	}
 	/*5일차 델타 타임을이용해서 프레임당 100씩움직이게 바꾸었습니다.
 	FVector CurrentLocation = GetActorLocation();
@@ -73,5 +69,17 @@ void AMovingPlatform::MovePlatfrom(float DeltaTime)
 
 void AMovingPlatform::MoveRoate(float DeltaTime)
 {
-	UE_LOG(LogTemp,Display,TEXT("%s Rotating"),*GetName());	
+	AddActorLocalRotation(RotationVelocity*DeltaTime);
 }
+
+bool AMovingPlatform::ShouldPlatformReturn() const
+{
+	return DistanceMoved()>MoveDistance;
+}
+
+float AMovingPlatform::DistanceMoved() const
+{
+	
+	return FVector::Distance(StartLocation,GetActorLocation());
+}
+
